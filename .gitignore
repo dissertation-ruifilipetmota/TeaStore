@@ -7,3 +7,14 @@ Servers/
 /.recommenders
 services/tools.descartes.petstore.image/test/
 limbo_checkstyle.out.xml
+interfaces/tools.descartes.teastore.entities/.settings/org.eclipse.jdt.apt.core.prefs
+services/tools.descartes.teastore.auth/.settings/org.eclipse.jdt.apt.core.prefs
+services/tools.descartes.teastore.image/.settings/org.eclipse.jdt.apt.core.prefs
+services/tools.descartes.teastore.persistence/.settings/org.eclipse.jdt.apt.core.prefs
+services/tools.descartes.teastore.recommender/.settings/org.eclipse.jdt.apt.core.prefs
+services/tools.descartes.teastore.registry/.settings/org.eclipse.jdt.apt.core.prefs
+services/tools.descartes.teastore.webui/.settings/org.eclipse.jdt.apt.core.prefs
+utilities/tools.descartes.teastore.dockermemoryconfigurator/.settings/org.eclipse.jdt.apt.core.prefs
+utilities/tools.descartes.teastore.kieker.probes/.settings/org.eclipse.jdt.apt.core.prefs
+utilities/tools.descartes.teastore.kieker.rabbitmq/.settings/org.eclipse.jdt.apt.core.prefs
+utilities/tools.descartes.teastore.registryclient/.settings/org.eclipse.jdt.apt.core.prefs
