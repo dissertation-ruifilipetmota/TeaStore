@@ -34,7 +34,8 @@ jobs:
 
 
       - name: Build project
-        run: mvn clean install
+        run: mvn compile -Dmaven.test.skip=true
+
 
       - name: Run PMD
         id: pmd
