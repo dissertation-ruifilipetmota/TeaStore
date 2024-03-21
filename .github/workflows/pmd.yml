@@ -30,7 +30,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
-          java-version: '7'
+          java-version: '6'
 
 
       - name: Build project
