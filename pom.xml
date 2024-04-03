@@ -31,6 +31,20 @@
 		<module>./utilities/tools.descartes.teastore.docker.all</module>
 	</modules>
 
+	<reporting>
+        <plugins>
+
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>4.8.3.2-SNAPSHOT</version>
+                <configuration>
+                    <sarifOutput>true</sarifOutput>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
 	<build>
 		<plugins>
 			<plugin>

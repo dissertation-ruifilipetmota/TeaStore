@@ -6,12 +6,13 @@
 name: pmd
 
 on:
-  push:
-    branches: [ "master" ]
+  #push:
+  #  branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-  schedule:
-    - cron: '24 22 * * 1'
+  #schedule:
+  #  - cron: '24 22 * * 1'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -49,10 +50,9 @@ jobs:
         uses: pmd/pmd-github-action@v2
         with:
           rulesets: 'rulesets/java/quickstart.xml'
-          sourcePath: 'src/main/java'
           analyzeModifiedFilesOnly: false
       - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: pmd-report.sarif
 
@@ -65,3 +65,12 @@ jobs:
           args: 
             -Dsonar.projectKey=${{ secrets.TEASTORE_SONAR_PROJECT_KEY }}  
             -Dsonar.java.binaries="services/tools.descartes.teastore.registry/target","services/tools.descartes.teastore.auth/target","services/tools.descartes.teastore.persistence/target","services/tools.descartes.teastore.image/target","services/tools.descartes.teastore.recommender/target","services/tools.descartes.teastore.webui/target","interfaces/tools.descartes.teastore.entities/target","utilities/tools.descartes.teastore.kieker.rabbitmq/target","utilities/tools.descartes.teastore.dockerbase/target","utilities/tools.descartes.teastore.kieker.probes/target","utilities/tools.descartes.teastore.docker.all/target","utilities/tools.descartes.teastore.registryclient/target","utilities/tools.descartes.teastore.dockermemoryconfigurator/target"
+
+      - name: Run SpotBugs
+        run: mvn com.github.spotbugs:spotbugs-maven-plugin:spotbugs
+
+      - name: List files and folders
+        run: ls -alh 
+
+      - name: List files and folders
+        run: ls -alh target

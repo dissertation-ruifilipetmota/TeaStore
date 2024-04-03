@@ -1,28 +1,37 @@
-name: Build
+name: semgrep
 
 on:
-  push:
-    branches: [ "mstr" ]
+  #push:
+  #  branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+  workflow_dispatch:
+    
+permissions:
+  contents: read
 
 jobs:
-  build:
+  pmd-code-scan:
+    permissions:
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
     runs-on: ubuntu-latest
+    container:
+      image: returntocorp/semgrep
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: '11'
-
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
-      - name: Run build with Gradle Wrapper
+      # step 2
+      - name: Semgrep Scan
         run: |
-          gradle wrapper
-          ./gradlew build
+          semgrep \
+            --sarif --output semgrep-report.sarif \
+            --metrics=off \
+            --config="p/default"
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: semgrep-report.sarif
+    
+
