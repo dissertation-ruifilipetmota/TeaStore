@@ -64,4 +64,4 @@ jobs:
         with:
           args: 
             -Dsonar.projectKey=${{ secrets.TEASTORE_SONAR_PROJECT_KEY }}  
-            #-Dsonar.java.binaries=
+            -Dsonar.java.binaries="services/tools.descartes.teastore.registry/target","services/tools.descartes.teastore.auth/target","services/tools.descartes.teastore.persistence/target","services/tools.descartes.teastore.image/target","services/tools.descartes.teastore.recommender/target","services/tools.descartes.teastore.webui/target","interfaces/tools.descartes.teastore.entities/target","utilities/tools.descartes.teastore.kieker.rabbitmq/target","utilities/tools.descartes.teastore.dockerbase/target","utilities/tools.descartes.teastore.kieker.probes/target","utilities/tools.descartes.teastore.docker.all/target","utilities/tools.descartes.teastore.registryclient/target","utilities/tools.descartes.teastore.dockermemoryconfigurator/target"
