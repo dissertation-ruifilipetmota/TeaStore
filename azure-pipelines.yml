@@ -25,19 +25,7 @@ steps:
   lfs: true
   displayName: 'Self Checkout'
 
-- task: Maven@4
-  inputs:
-    mavenPomFile: 'pom.xml'
-    publishJUnitResults: false
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    mavenVersionOption: 'Default'
-    mavenAuthenticateFeed: false
-    effectivePomSkip: false
-    sonarQubeRunAnalysis: false
-    spotBugsRunAnalysis: true
-    spotBugsVersion: '4.8.3.2'
-  displayName: 'Prepare Maven'
+
 
 - script: |
     ls
