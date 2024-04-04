@@ -33,7 +33,7 @@ steps:
     # Build and compile your WebGoat project using Apache Maven
     mvn clean install -Dmaven.test.skip=true
     
-  displayName: 'Install and Compile WebGoat with Maven'
+  displayName: 'Install and Compile TeaStore with Maven'
   failOnStderr: false
 
 - script: |
