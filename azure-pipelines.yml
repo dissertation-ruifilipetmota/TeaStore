@@ -1,0 +1,70 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+  
+variables:
+  java.version: '8'  # Specify the desired Java version
+  #python.version: '3.x'  # Specify the desired Python version
+    
+steps:
+- task: JavaToolInstaller@0
+  inputs:
+    versionSpec: '$(java.version)'
+    jdkArchitectureOption: 'x64'
+    jdkSourceOption: 'PreInstalled'
+  displayName: 'Install Java'
+
+- checkout: self
+  lfs: true
+  displayName: 'Self Checkout'
+
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'pom.xml'
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+    spotBugsRunAnalysis: true
+    spotBugsVersion: '4.8.3.2'
+  displayName: 'Prepare Maven'
+
+- script: |
+    ls
+    cd teastore
+    # Build and compile your WebGoat project using Apache Maven
+    mvn clean install -Dmaven.test.skip=true
+    
+  displayName: 'Install and Compile WebGoat with Maven'
+  failOnStderr: false
+
+- script: |
+    mvn --no-transfer-progress spotbugs:check
+  displayName: 'Run SpotBugs analysis'
+
+- script: |
+    # Install PMD
+    #wget https://github.com/pmd/pmd/releases/download/pmd_releases%2F6.22.0/pmd-bin-6.22.0.zip
+    #unzip pmd-bin-6.22.0.zip
+
+    # Run PMD analysis
+    #./pmd-bin-6.22.0/bin/run.sh pmd -d src/main/java -f text -R rulesets/java/quickstart.xml --failOnViolation false
+    mvn pmd:pmd
+  displayName: 'Run PMD analysis'
+  
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    artifactName: 'pmd-report'
+    targetPath: '$(System.DefaultWorkingDirectory)/target'
+  displayName: 'Publish Pipeline Artifact'
