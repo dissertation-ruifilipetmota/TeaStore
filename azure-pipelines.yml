@@ -8,10 +8,10 @@ trigger:
 
 #pool:
 #  vmImage: ubuntu-latest
-pool: 
-  name: teste
-  demands:
-  - agent.name -equals jk
+#pool: 
+#  name: teste
+#  demands:
+#  - agent.name -equals jk
   
 variables:
   java.version: '8'  # Specify the desired Java version
